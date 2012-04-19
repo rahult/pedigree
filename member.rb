@@ -1,7 +1,6 @@
 class Member
   attr_accessor :name, :gender,
-                :x1, :y1,
-                :x1, :y2
+                :father, :mother
 
   def initialize(canvas, options)
     @canvas  = canvas
@@ -10,16 +9,37 @@ class Member
     @gender  = options[:gender] || :male
     @father  = options[:father]
     @mother  = options[:mother]
-    @x1, @y1 = 50, 50
-    @x2, @y2 = 100, 100
+    @x, @y   = 10, 10
+    @step    = 50
+    @gap     = 120
+  end
+
+  def depth
+    (@father || @mother) ? 1 : 0
+  end
+
+  def x1
+    @x
+  end
+
+  def y1
+    @y + (depth * @gap)
+  end
+
+  def x2
+    x1 + @step
+  end
+
+  def y2
+    y1 + @step
   end
 
   def symbol
     case @gender
     when :male
-      TkcRectangle.new(@canvas, @x1, @y1, @x2, @y2, 'tag' => @tag)
+      TkcRectangle.new(@canvas, x1, y1, x2, y2, 'tag' => @tag)
     when :female
-      TkcOval.new(@canvas, @x1, @y1, @x2, @y2, 'tag' => @tag)
+      TkcOval.new(@canvas, x1, y1, x2, y2, 'tag' => @tag)
     end
   end
 
@@ -29,11 +49,11 @@ class Member
   end
 
   def caption
-    TkcText.new(@canvas, @x1 + 10, @y2 + 10, 'text' => @name, 'anchor' => 'nw', 'tag' => @tag)
+    TkcText.new(@canvas, x1 + 10, y2 + 10, 'text' => @name, 'anchor' => 'nw', 'tag' => @tag)
   end
 
   def move(space)
-    @canvas.move(@tag, @x1 + space, 100)
+    @canvas.move(@tag, x1 + space, 100)
   end
 end
 
