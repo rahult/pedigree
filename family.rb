@@ -28,4 +28,3 @@ class Family
     @canvas.mainloop
   end
 end
-

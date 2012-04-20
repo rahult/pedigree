@@ -15,7 +15,15 @@ class Member
   end
 
   def depth
-    (@father || @mother) ? 1 : 0
+    has_parent? ? (1 + parent.depth) : 0
+  end
+
+  def has_parent?
+    @father || @mother
+  end
+
+  def parent
+    @father || @mother
   end
 
   def x1
