@@ -15,11 +15,21 @@ class Member
     @gap     = 120
   end
 
-  def depth
+  def ydepth
     if has_spouse?
-      @spouse.depth
+      @spouse.ydepth
     elsif has_parent?
-      1 + parent.depth
+      1 + parent.ydepth
+    else
+      0
+    end
+  end
+
+  def xdepth
+    if has_spouse?
+      @spouse.xdepth
+    elsif has_parent?
+      1 + parent.xdepth
     else
       0
     end
@@ -42,7 +52,7 @@ class Member
   end
 
   def y1
-    @y + (depth * @gap)
+    @y + (ydepth * @gap)
   end
 
   def x2

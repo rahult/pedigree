@@ -6,17 +6,17 @@ class Family
   attr_accessor :members, :canvas
 
   def initialize
-    @canvas = TkCanvas.new(width: 600, height: 600)
+    @canvas = TkCanvas.new(width: 700, height: 800)
     @canvas.pack
     @gap = 100
     @members = []
   end
 
   def draw
-    sorted_members = members.sort_by { |m| [m.depth, !m.gender, m.name] }
-                     .group_by { |m| m.depth }
+    sorted_members = members.sort_by { |m| [m.ydepth, m.gender, m.name] }
+                     .group_by { |m| m.ydepth }
 
-    sorted_members.each do |depth, members|
+    sorted_members.each do |ydepth, members|
       space = 0
       members.each do |member|
         space += @gap
