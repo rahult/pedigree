@@ -9,13 +9,24 @@ class Member
     @gender  = options[:gender] || :male
     @father  = options[:father]
     @mother  = options[:mother]
+    @spouse  = options[:spouse]
     @x, @y   = 10, 10
     @step    = 50
     @gap     = 120
   end
 
   def depth
-    has_parent? ? (1 + parent.depth) : 0
+    if has_spouse?
+      @spouse.depth
+    elsif has_parent?
+      1 + parent.depth
+    else
+      0
+    end
+  end
+
+  def has_spouse?
+    @spouse
   end
 
   def has_parent?
